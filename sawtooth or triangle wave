@@ -1,0 +1,9 @@
+Sawtooth:
+sineTable[i] = map(i, 0, waveformResolution - 1, 0, 4095);
+
+
+Triangle:
+if (i < waveformResolution / 2)
+  sineTable[i] = map(i, 0, waveformResolution / 2, 0, 4095);
+else
+  sineTable[i] = map(i, waveformResolution / 2, waveformResolution - 1, 4095, 0);
