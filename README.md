@@ -28,7 +28,7 @@ Hardware Components
   - Op-amp (for signal amplification or buffering)
 
 Time Domain Signal Focus
-All waveforms are generated in the **time domain**, meaning the Arduino will output voltage levels that vary over time to form wave shapes. This is ideal for:
+All waveforms are generated in the time domain, meaning the Arduino will output voltage levels that vary over time to form wave shapes. This is ideal for:
 - Oscilloscope testing
 - Signal tracing in circuits
 - Learning waveform behavior
