@@ -1,0 +1,36 @@
+#include <Wire.h>
+#include <Adafruit_MCP4725.h>
+#include <math.h>
+
+Adafruit_MCP4725 dac;
+
+const int waveformResolution = 100;
+const float pi = 3.14159;
+uint16_t sineTable[waveformResolution];
+
+unsigned long lastUpdate = 0;
+int freq = 100; // Hz
+unsigned long interval;
+
+void setup() {
+  dac.begin(0x60); // Default I2C address
+  Serial.begin(9600);
+
+  // Precompute sine values
+  for (int i = 0; i < waveformResolution; i++) {
+    float angle = 2 * pi * i / waveformResolution;
+    sineTable[i] = 2048 + 2047 * sin(angle);  // 12-bit range
+  }
+
+  interval = 1000000UL / (freq * waveformResolution); // Microseconds per sample
+}
+
+void loop() {
+  static int index = 0;
+
+  if (micros() - lastUpdate >= interval) {
+    lastUpdate = micros();
+    dac.setVoltage(sineTable[index], false);
+    index = (index + 1) % waveformResolution;
+  }
+}
